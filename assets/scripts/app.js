@@ -73,10 +73,12 @@ const writeToLog = (
 };
 
 /**
- * Add two numbers
+ *
+ * @param {string} calculationType
+ * DO the calculation
  * @returns {void}
  */
-const add = () => {
+const calculateResult = calculationType => {
   /**
    * Number entered by the user
    * @type {number}
@@ -89,14 +91,32 @@ const add = () => {
    */
   const initialResult = currentResult;
 
-  // do the math and calculate the new global result
-  currentResult += enteredNumber;
+  /**
+   * @type {string}
+   */
+  let mathOperator;
+
+  if (calculationType === 'ADD') {
+    currentResult += enteredNumber;
+    mathOperator = '+';
+  } else {
+    currentResult -= enteredNumber;
+    mathOperator = '-';
+  }
 
   // output the calc description and the new result in separate lines
-  createAndWriteOutput('+', initialResult, enteredNumber);
+  createAndWriteOutput(mathOperator, initialResult, enteredNumber);
 
   // write to log by calling writeToLog function
-  writeToLog('ADD', initialResult, enteredNumber, currentResult);
+  writeToLog(calculationType, initialResult, enteredNumber, currentResult);
+};
+
+/**
+ * Add two numbers
+ * @returns {void}
+ */
+const add = () => {
+  calculateResult('ADD');
 };
 
 /**
@@ -104,26 +124,7 @@ const add = () => {
  * @returns {void}
  */
 const subtract = () => {
-  /**
-   * Number entered by the user
-   * @type {number}
-   */
-  const enteredNumber = getUserNumberInput();
-
-  /**
-   * Initial result before subtract calculation
-   * @type {number}
-   */
-  const initialResult = currentResult;
-
-  // do the math and calculate the new global result
-  currentResult -= enteredNumber;
-
-  // output the calc description and the new result in separate lines
-  createAndWriteOutput('-', initialResult, enteredNumber);
-
-  // write to log by calling writeToLog function
-  writeToLog('SUBTRACT', initialResult, enteredNumber, currentResult);
+  calculateResult('SUBTRACT');
 };
 
 /**
