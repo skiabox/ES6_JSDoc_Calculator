@@ -99,9 +99,15 @@ const calculateResult = calculationType => {
   if (calculationType === 'ADD') {
     currentResult += enteredNumber;
     mathOperator = '+';
-  } else {
+  } else if (calculationType === 'SUBTRACT') {
     currentResult -= enteredNumber;
     mathOperator = '-';
+  } else if (calculationType === 'MULTIPLY') {
+    currentResult *= enteredNumber;
+    mathOperator = '*';
+  } else {
+    currentResult /= enteredNumber;
+    mathOperator = '/';
   }
 
   // output the calc description and the new result in separate lines
@@ -132,26 +138,7 @@ const subtract = () => {
  * @returns {void}
  */
 const multiply = () => {
-  /**
-   * Number entered by the user
-   * @type {number}
-   */
-  const enteredNumber = getUserNumberInput();
-
-  /**
-   * Initial result before subtract calculation
-   * @type {number}
-   */
-  const initialResult = currentResult;
-
-  // do the math and calculate the new global result
-  currentResult *= enteredNumber;
-
-  // output the calc description and the new result in separate lines
-  createAndWriteOutput('*', initialResult, enteredNumber);
-
-  // write to log by calling writeToLog function
-  writeToLog('MULTIPLY', initialResult, enteredNumber, currentResult);
+  calculateResult('MULTIPLY');
 };
 
 /**
@@ -159,26 +146,7 @@ const multiply = () => {
  * @returns {void}
  */
 const divide = () => {
-  /**
-   * Number entered by the user
-   * @type {number}
-   */
-  const enteredNumber = getUserNumberInput();
-
-  /**
-   * Initial result before subtract calculation
-   * @type {number}
-   */
-  const initialResult = currentResult;
-
-  // do the math and calculate the new global result
-  currentResult /= enteredNumber;
-
-  // output the calc description and the new result in separate lines
-  createAndWriteOutput('/', initialResult, enteredNumber);
-
-  // write to log by calling writeToLog function
-  writeToLog('DIVIDE', initialResult, enteredNumber, currentResult);
+  calculateResult('DIVIDE');
 };
 
 addBtn.addEventListener('click', add);
